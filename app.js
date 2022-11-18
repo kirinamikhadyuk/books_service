@@ -39,7 +39,7 @@ app.get("/allBooks", (req, res) => {
 });
 
 app.get("/book/id", (req, res) => {
-    Book.findById(req.body)
+    Book.findById(req.query.id)
         .then(data => {
             const response = !!data ? data : 'No data with specified id found'
             res.status(200).send(response);
@@ -50,7 +50,7 @@ app.get("/book/id", (req, res) => {
 });
 
 app.delete("/book/id", (req, res) => {
-    Book.findByIdAndDelete(req.body)
+    Book.findByIdAndDelete(req.query.id)
         .then(result => {
             const response = !!result ? result : 'No data with specified id found'
             res.status(200).send(response);
