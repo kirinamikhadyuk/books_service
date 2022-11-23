@@ -23,7 +23,6 @@ app.post("/book", (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
-            res.withCredentials = false;
             res.status(200).send(data);
         })
         .catch(error => {
