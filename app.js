@@ -3,7 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const model = require('./model/book');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 const mongoURL = process.env.MONGO_URL;
@@ -13,12 +13,30 @@ mongoose.connect(mongoURL);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({
+/*app.use(cors({
     origin: "https://form-mikhadyuk.herokuapp.com",
     methods: "GET,POST,DELETE",
     preflightContinue: false,
     credentials: true
-}));
+}));*/
+
+//Cors Configuration - Start
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+    if (req.method === "OPTIONS") {
+        res.header(
+            "Access-Control-Allow-Methods",
+            "POST, PUT, PATCH, GET, DELETE"
+        )
+        return res.status(200).json({})
+    }
+    next()
+})
+//Cors Configuration - End
 
 app.get("/", (req, res) => {
     res.send("This is books service");
