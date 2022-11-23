@@ -39,14 +39,15 @@ app.get("/", (req, res) => {
 });
 
 app.post("/book", (req, res) => {
-    const book = new Book(req.body);
+    res.status(200).send('cool');
+    /*const book = new Book(req.body);
     book.save()
         .then(data => {
             res.status(200).send(data);
         })
         .catch(error => {
             res.status(400).send(error);
-        });
+        });*/
 });
 
 app.get("/allBooks", (req, res) => {
