@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 }));*/
 
 //Cors Configuration - Start
-app.use(function(req, res) {
+app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET,POST,DELETE");
     res.header("Access-Control-Allow-Headers", "*");
@@ -31,6 +31,7 @@ app.use(function(req, res) {
         )
         return res.status(200).json({})
     }
+    next();
 });
 //Cors Configuration - End
 
@@ -39,15 +40,15 @@ app.get("/", (req, res) => {
 });
 
 app.post("/book", (req, res) => {
-    res.status(200).send('cool');
-    /*const book = new Book(req.body);
+    console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    const book = new Book(req.body);
     book.save()
         .then(data => {
             res.status(200).send(data);
         })
         .catch(error => {
             res.status(400).send(error);
-        });*/
+        });
 });
 
 app.get("/allBooks", (req, res) => {
