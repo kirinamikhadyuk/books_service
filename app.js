@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 }));*/
 
 //Cors Configuration - Start
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header(
         "Access-Control-Allow-Headers",
@@ -35,7 +35,7 @@ app.use((req, res, next) => {
         return res.status(200).json({})
     }
     next()
-})
+})*/
 //Cors Configuration - End
 
 app.get("/", (req, res) => {
@@ -46,6 +46,12 @@ app.post("/book", (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
+            res.header("Access-Control-Allow-Origin", "*")
+            res.header("Access-Control-Allow-Headers","*")
+            if (req.method === "OPTIONS") {
+                res.header("Access-Control-Allow-Methods","*")
+                return res.status(200).json({})
+            }
             res.status(200).send(data);
         })
         .catch(error => {
