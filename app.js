@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
     res.send("This is books service");
 });
 
-app.post("/book", (req, res) => {
+app.post("/book", cors(), (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
