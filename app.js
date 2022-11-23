@@ -23,6 +23,7 @@ app.post("/book", cors(), (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
+            res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000')
             res.status(200).send(data);
         })
         .catch(error => {
