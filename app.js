@@ -33,8 +33,7 @@ app.get("/", (req, res) => {
 });
 
 app.post("/book", (req, res) => {
-    console.log(req.body);
-    const book = new Book(JSON.parse(req.body));
+    const book = new Book(JSON.stringify(req.body));
     book.save()
         .then(data => {
             res.status(200).send(data);
