@@ -21,21 +21,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 }));*/
 
 //Cors Configuration - Start
-/*app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested, Content-Type, Accept, Authorization"
-    )
-    if (req.method === "OPTIONS") {
-        res.header(
-            "Access-Control-Allow-Methods",
-            "POST, PUT, PATCH, GET, DELETE"
-        )
-        return res.status(200).json({})
-    }
-    next()
-})*/
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    next();
+});
 //Cors Configuration - End
 
 app.get("/", (req, res) => {
@@ -43,13 +34,6 @@ app.get("/", (req, res) => {
 });
 
 app.post("/book", (req, res) => {
-    res.header("Access-Control-Allow-Origin", "*")
-    res.header("Access-Control-Allow-Headers","*")
-    if (req.method === "OPTIONS") {
-        res.header("Access-Control-Allow-Methods","*")
-        return res.status(200).json({})
-    }
-
     const book = new Book(req.body);
     book.save()
         .then(data => {
