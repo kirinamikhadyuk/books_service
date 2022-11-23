@@ -23,6 +23,9 @@ app.post("/book", (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
+            res.header({
+                'Access-Control-Allow-Origin': '*',
+            });
             res.status(200).send(data);
         })
         .catch(error => {
