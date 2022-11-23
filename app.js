@@ -14,8 +14,10 @@ mongoose.connect(mongoURL);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-    origin: "*",
-    methods: "GET,POST,DELETE"
+    origin: "https://form-mikhadyuk.herokuapp.com",
+    methods: "GET,POST,DELETE",
+    preflightContinue: false,
+    credentials: true
 }));
 
 app.get("/", (req, res) => {
