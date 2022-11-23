@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const bodyParser = require('body-parser');
 const model = require('./model/book');
+const cors = require('cors');
 require('dotenv').config();
 
 const mongoURL = process.env.MONGO_URL;
@@ -12,6 +13,7 @@ mongoose.connect(mongoURL);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get("/", (req, res) => {
     res.send("This is books service");
@@ -21,7 +23,6 @@ app.post("/book", (req, res) => {
     const book = new Book(req.body);
     book.save()
         .then(data => {
-            res.setHeader('Access-Control-Allow-Origin', 'https://form-mikhadyuk.herokuapp.com/');
             res.status(200).send(data);
         })
         .catch(error => {
